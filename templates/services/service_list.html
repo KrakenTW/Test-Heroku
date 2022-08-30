@@ -1,0 +1,6 @@
+{% for service in object_list %}
+    {{ service.title }}<br>
+{% endfor %}
+<a href="{% url 'add_service' %}" class="btn btn-primary">Add service</a>
+{% include 'pagination.html' %}
+

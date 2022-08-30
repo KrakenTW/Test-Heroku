@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div class="container">
+        <h2>
+            {{ object.name }}
+            {% if request.user == object.user %}
+                <a href="{% url 'delete_provider' object.pk %}" class="btn btn-danger btn-sm" >Delete</a><br>
+            {% endif %}
+        </h2>
+        <p>{{ object.description }}</p>
+        <p>Dostepne usługi:</p>
+        <div class="list-group">
+            {% for service in services %}
+                    {# TODO: Add to basket url in this href #}
+                    <a href="{% url 'add_to_basket' service.pk %}" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ service.title }}</h5>
+                            <small>{{ service.price }}</small>
+                        </div>
+                        <p class="mb-1">{{ service.description }}</p>
+                    {% if request.user == object.user %}
+                       <a href="{% url 'delete_service' service.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                    {% endif %}
+                  </a>
+            {% endfor %}
+        </div>
+    <br>
+        {% if request.user == object.user %}
+            <p><a href="{% url 'add_service' object.pk %}" class="btn btn-primary btn-sm">Create service</a><p>
+        {% endif %}
+    </div>
+
+{% endblock body %} %}

@@ -1,0 +1,35 @@
+<!doctype html>
+{% extends "base.html" %}
+{% load static %}
+<body>
+{% block body %}
+  <script src="{% static 'js/providers/toggleFilters.js' %}"></script>
+    <button onclick="toggleFilters()">Filters</button>
+    <div id="filter-form" style="display: none">
+         <form method="get" action="{{ request.path }}">
+             {{ form.as_p }}
+             <input type="submit" value="Save">
+         </form>
+    </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-sm-8 col-lg-5">
+              <h6 class="text-muted">List of providers</h6>
+              <ul class="list-group">
+                {% for provider in object_list %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="{% url 'provider_detail' provider.pk %}">{{ provider.name }}</a>
+                        <div class="image-parent">
+                            {% if provider.photo %}
+                                <img src="https://raw.githubusercontent.com/pasiac/projekt_zespolowy/main/Graphics/Sprz%C4%85tanie.png" alt="Cleaning" width="100" height="100">
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+            {% include 'pagination.html' %}
+        </div>
+{% endblock %}
+</body>

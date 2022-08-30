@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class="list-group">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Total price</th>
+                  <th scope="col">Active</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for reservation in object_list %}
+                <tr role="button" data-href="{% url 'reservation_detail' reservation.pk %}">
+                    <td>{{ forloop.counter }}.</td>
+                    <td>{{ reservation.total_price }}</td>
+                    <td>{{ reservation.active|yesno}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    {% include 'pagination.html' %}
+<script>
+    $(function(){
+     $(".table").on("click", "tr[role=\"button\"]", function (e) {
+          window.location = $(this).data("href");
+     });
+});
+</script>
+
+{% endblock %}

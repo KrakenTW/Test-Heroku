@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Price</th>
+              <th scope="col">Date</th>
+            </tr>
+        </thead>
+            <tbody>
+                {% for reservation_service in reservation_services %}
+                    <tr>
+                        <td>{{ forloop.counter }}.</td>
+                        <td>{{ reservation_service.service.title }}</td>
+                        <td>{{ reservation_service.price}}</td>
+                        <td>{{ reservation_service.date}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+
+    {% if not reservation.active %}
+        <form action="{% url 'checkout_reservatuin' reservation.pk %}" method="post">
+            {% csrf_token %}
+            <input type="submit" class="submit_btn btn label-success" value="Reserve" />
+        </form>
+    {% endif %}
+
+{% endblock %}

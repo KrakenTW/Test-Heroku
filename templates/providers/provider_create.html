@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div class="container">
+        <form method="post" enctype="multipart/form-data" >{% csrf_token %}
+            {{ form.as_p }}
+            {% include "providers/formset.html" with formset=form.services_formset %}
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+{% endblock body %} %}
